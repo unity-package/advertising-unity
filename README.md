@@ -25,16 +25,16 @@
 
 for version `1.1.4`
 ```csharp
-"com.wolf-org.advertising":"https://github.com/wolf-org/advertising-unity.git#1.1.4",
+"com.wolf-org.advertising":"https://github.com/unity-package/advertising-unity.git#1.1.4",
 ```
 dependency `extensions-unity-1.0.5`
 ```csharp
-"com.wolf-org.extensions":"https://github.com/wolf-org/extensions-unity.git#1.0.5",
+"com.wolf-org.extensions":"https://github.com/unity-package/extensions-unity.git#1.0.5",
 ```
 
 Install `app-tracking-unity` and add define symbol `VIRTUESKY_TRACKING` if you need ad revenue tracking
 ```csharp
-"com.wolf-org.tracking":"https://github.com/wolf-org/app-tracking-unity.git#1.0.3",
+"com.wolf-org.tracking":"https://github.com/unity-package/app-tracking-unity.git#1.0.3",
 ```
 
 ## Use
