@@ -6,8 +6,8 @@ namespace VirtueSky.Ads
     [Serializable]
     public class MaxBannerAdUnit : AdUnit
     {
-        public BannerSize size = BannerSize.Banner;
-        public BannerPosition position = BannerPosition.Bottom;
+        public AdsSize size = AdsSize.Banner;
+        public AdsPosition position = AdsPosition.Bottom;
 
         private bool _isBannerDestroyed = true;
         private bool _isBannerShowing;
@@ -26,7 +26,7 @@ namespace VirtueSky.Ads
             MaxSdkCallbacks.Banner.OnAdCollapsedEvent += OnAdCollapsed;
             MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaid;
             MaxSdkCallbacks.Banner.OnAdClickedEvent += OnAdClicked;
-            if (size != BannerSize.Adaptive)
+            if (size != AdsSize.Adaptive)
             {
                 MaxSdk.SetBannerExtraParameter(Id, "adaptive_banner", "false");
             }
@@ -105,12 +105,12 @@ namespace VirtueSky.Ads
         {
             switch (position)
             {
-                case BannerPosition.Top: return MaxSdkBase.BannerPosition.TopCenter;
-                case BannerPosition.Bottom: return MaxSdkBase.BannerPosition.BottomCenter;
-                case BannerPosition.TopLeft: return MaxSdkBase.BannerPosition.TopLeft;
-                case BannerPosition.TopRight: return MaxSdkBase.BannerPosition.TopRight;
-                case BannerPosition.BottomLeft: return MaxSdkBase.BannerPosition.BottomLeft;
-                case BannerPosition.BottomRight: return MaxSdkBase.BannerPosition.BottomRight;
+                case AdsPosition.Top: return MaxSdkBase.BannerPosition.TopCenter;
+                case AdsPosition.Bottom: return MaxSdkBase.BannerPosition.BottomCenter;
+                case AdsPosition.TopLeft: return MaxSdkBase.BannerPosition.TopLeft;
+                case AdsPosition.TopRight: return MaxSdkBase.BannerPosition.TopRight;
+                case AdsPosition.BottomLeft: return MaxSdkBase.BannerPosition.BottomLeft;
+                case AdsPosition.BottomRight: return MaxSdkBase.BannerPosition.BottomRight;
                 default:
                     return MaxSdkBase.BannerPosition.BottomCenter;
             }

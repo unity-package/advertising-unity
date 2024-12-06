@@ -25,6 +25,7 @@ namespace VirtueSky.Ads
         private SerializedProperty _admobRewardAdUnit;
         private SerializedProperty _admobRewardedInterstitialAdUnit;
         private SerializedProperty _admobAppOpenAdUnit;
+        private SerializedProperty _admobNativeOverlayAdUnit;
         private SerializedProperty _admobEnableTestMode;
         private SerializedProperty _enableGDPR;
         private SerializedProperty _enableGDPRTestMode;
@@ -32,6 +33,7 @@ namespace VirtueSky.Ads
 
         private SerializedProperty _androidAppKey;
         private SerializedProperty _iOSAppKey;
+
         private SerializedProperty _useTestAppKey;
         // private SerializedProperty _ironSourceBannerAdUnit;
         // private SerializedProperty _ironSourceInterstitialAdUnit;
@@ -56,6 +58,7 @@ namespace VirtueSky.Ads
             _admobRewardAdUnit = serializedObject.FindProperty("admobRewardAdUnit");
             _admobRewardedInterstitialAdUnit = serializedObject.FindProperty("admobRewardedInterstitialAdUnit");
             _admobAppOpenAdUnit = serializedObject.FindProperty("admobAppOpenAdUnit");
+            _admobNativeOverlayAdUnit = serializedObject.FindProperty("admobNativeOverlayAdUnit");
             _admobEnableTestMode = serializedObject.FindProperty("admobEnableTestMode");
             _enableGDPR = serializedObject.FindProperty("enableGDPR");
             _enableGDPRTestMode = serializedObject.FindProperty("enableGDPRTestMode");
@@ -128,6 +131,7 @@ namespace VirtueSky.Ads
             EditorGUILayout.PropertyField(_admobRewardAdUnit);
             EditorGUILayout.PropertyField(_admobRewardedInterstitialAdUnit);
             EditorGUILayout.PropertyField(_admobAppOpenAdUnit);
+            EditorGUILayout.PropertyField(_admobNativeOverlayAdUnit);
             EditorGUILayout.PropertyField(_admobEnableTestMode);
             EditorGUILayout.PropertyField(_enableGDPR);
             if (_enableGDPR.boolValue)

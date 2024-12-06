@@ -23,9 +23,9 @@
 
 ### Add the line below to `Packages/manifest.json`
 
-for version `1.1.4`
+for version `1.1.5`
 ```csharp
-"com.wolf-org.advertising":"https://github.com/unity-package/advertising-unity.git#1.1.4",
+"com.wolf-org.advertising":"https://github.com/unity-package/advertising-unity.git#1.1.5",
 ```
 dependency `extensions-unity-1.0.5`
 ```csharp

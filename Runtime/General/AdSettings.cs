@@ -15,7 +15,7 @@ namespace VirtueSky.Ads
             {
                 if (instance != null) return instance;
 
-                instance = Resources.Load<AdSettings>(typeof(AdSettings).Name);
+                instance = Resources.Load<AdSettings>(nameof(AdSettings));
                 if (instance == null)
                     throw new Exception($"Scriptable setting for {typeof(AdSettings)} must be create before run!");
                 return instance;
@@ -56,6 +56,7 @@ namespace VirtueSky.Ads
         [SerializeField] private AdmobRewardAdUnit admobRewardAdUnit;
         [SerializeField] private AdmobRewardedInterstitialAdUnit admobRewardedInterstitialAdUnit;
         [SerializeField] private AdmobAppOpenAdUnit admobAppOpenAdUnit;
+        [SerializeField] private AdmobNativeOverlayAdUnit admobNativeOverlayAdUnit;
         [SerializeField] private bool admobEnableTestMode;
         [SerializeField] private bool enableGDPR;
         [SerializeField] private bool enableGDPRTestMode;
@@ -67,6 +68,7 @@ namespace VirtueSky.Ads
         public AdmobRewardAdUnit AdmobRewardAdUnit => admobRewardAdUnit;
         public AdmobRewardedInterstitialAdUnit AdmobRewardedInterstitialAdUnit => admobRewardedInterstitialAdUnit;
         public AdmobAppOpenAdUnit AdmobAppOpenAdUnit => admobAppOpenAdUnit;
+        public AdmobNativeOverlayAdUnit AdmobNativeOverlayAdUnit => admobNativeOverlayAdUnit;
         public bool AdmobEnableTestMode => admobEnableTestMode;
         public bool EnableGDPR => enableGDPR;
         public bool EnableGDPRTestMode => enableGDPRTestMode;
@@ -144,7 +146,7 @@ namespace VirtueSky.Ads
         IronSource
     }
 
-    public enum BannerPosition
+    public enum AdsPosition
     {
         Top = 1,
         Bottom = 0,
@@ -154,7 +156,7 @@ namespace VirtueSky.Ads
         BottomRight = 5,
     }
 
-    public enum BannerSize
+    public enum AdsSize
     {
         Banner = 0, // 320x50
         Adaptive = 5, // full width
