@@ -13,7 +13,6 @@ namespace VirtueSky.Ads
             adSettings.MaxInterstitialAdUnit.Init();
             adSettings.MaxRewardAdUnit.Init();
             adSettings.MaxAppOpenAdUnit.Init();
-            adSettings.MaxRewardedInterstitialAdUnit.Init();
             App.AddPauseCallback(OnAppStateChange);
             LoadInterstitial();
             LoadRewarded();

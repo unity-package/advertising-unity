@@ -70,7 +70,6 @@ namespace VirtueSky.Ads
         {
             return adSettings.CurrentAdNetwork switch
             {
-                AdNetwork.Max => adSettings.MaxRewardedInterstitialAdUnit,
                 AdNetwork.Admob => adSettings.AdmobRewardedInterstitialAdUnit,
                 _ => null
             };

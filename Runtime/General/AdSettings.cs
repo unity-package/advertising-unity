@@ -34,17 +34,12 @@ namespace VirtueSky.Ads
         [SerializeField] private MaxBannerAdUnit maxBannerAdUnit;
         [SerializeField] private MaxInterstitialAdUnit maxInterstitialAdUnit;
         [SerializeField] private MaxRewardAdUnit maxRewardAdUnit;
-        [SerializeField] private MaxRewardedInterstitialAdUnit maxRewardedInterstitialAdUnit;
         [SerializeField] private MaxAppOpenAdUnit maxAppOpenAdUnit;
 
         public string SdkKey => Instance.sdkKey;
         public MaxBannerAdUnit MaxBannerAdUnit => Instance.maxBannerAdUnit;
         public MaxInterstitialAdUnit MaxInterstitialAdUnit => Instance.maxInterstitialAdUnit;
         public MaxRewardAdUnit MaxRewardAdUnit => Instance.maxRewardAdUnit;
-
-        public MaxRewardedInterstitialAdUnit MaxRewardedInterstitialAdUnit =>
-            Instance.maxRewardedInterstitialAdUnit;
-
         public MaxAppOpenAdUnit MaxAppOpenAdUnit => Instance.maxAppOpenAdUnit;
 
         #endregion
