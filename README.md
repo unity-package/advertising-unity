@@ -24,16 +24,16 @@
 ### Add the line below to `Packages/manifest.json`
 
 for version `1.1.6`
-```csharp
+```json
 "com.wolf-org.advertising":"https://github.com/unity-package/advertising-unity.git#1.1.6",
 ```
 dependency `extensions-unity-1.0.5`
-```csharp
+```json
 "com.wolf-org.extensions":"https://github.com/unity-package/extensions-unity.git#1.0.5",
 ```
 
 Install `app-tracking-unity` and add define symbol `VIRTUESKY_TRACKING` if you need ad revenue tracking
-```csharp
+```json
 "com.wolf-org.tracking":"https://github.com/unity-package/app-tracking-unity.git#1.0.3",
 ```
 
