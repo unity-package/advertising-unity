@@ -143,7 +143,7 @@ namespace VirtueSky.Ads
         private void OnAdFailedToLoad(LoadAdError error)
         {
             Common.CallActionAndClean(ref failedToLoadCallback);
-            OnFailedToLoadAdEvent?.Invoke(error.GetMessage());
+            OnFailedToLoadAdEvent?.Invoke(error.GetCode().ToString(), error.GetMessage());
         }
 #endif
 

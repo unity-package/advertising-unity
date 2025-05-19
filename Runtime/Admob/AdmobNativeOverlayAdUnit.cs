@@ -164,7 +164,8 @@ namespace VirtueSky.Ads
             (int admobX, int admobY) = ConvertUiElementPosToNativeAdsPos(uiElement, camera);
             if (useSizeUiElement)
             {
-                _nativeOverlayAd?.RenderTemplate(Style(), new AdSize((int)uiElement.rect.width, (int)uiElement.rect.height), admobX, admobY);
+                _nativeOverlayAd?.RenderTemplate(Style(),
+                    new AdSize((int)uiElement.rect.width, (int)uiElement.rect.height), admobX, admobY);
             }
             else
             {
@@ -338,7 +339,7 @@ namespace VirtueSky.Ads
         private void OnAdFailedToLoad(LoadAdError error)
         {
             Common.CallActionAndClean(ref failedToLoadCallback);
-            OnFailedToLoadAdEvent?.Invoke(error.GetMessage());
+            OnFailedToLoadAdEvent?.Invoke(error.GetCode().ToString(), error.GetMessage());
             if (_reload != null) App.StopCoroutine(_reload);
             _reload = DelayReload();
             App.StartCoroutine(_reload);

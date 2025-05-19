@@ -2,8 +2,8 @@
   "name": "com.wolf-org.advertising",
   "displayName": "UnityCommon-ADS",
   "description": "Support show ads for game unity",
-  "version": "1.1.6",
-  "unity": "2021.3",
+  "version": "1.1.7",
+  "unity": "2022.3",
   "category": "virtuesky",
   "license": "MIT",
   "author": {

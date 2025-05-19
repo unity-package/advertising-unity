@@ -145,7 +145,7 @@ namespace VirtueSky.Ads
         private void OnAdLoadFailed(string unit, MaxSdkBase.ErrorInfo info)
         {
             Common.CallActionAndClean(ref failedToLoadCallback);
-            OnFailedToLoadAdEvent?.Invoke(info.Message);
+            OnFailedToLoadAdEvent?.Invoke(info.Code.ToString(), info.Message);
             Destroy();
         }
 

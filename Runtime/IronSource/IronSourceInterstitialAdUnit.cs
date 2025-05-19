@@ -77,7 +77,8 @@ namespace VirtueSky.Ads
         void InterstitialOnAdLoadFailed(IronSourceError ironSourceError)
         {
             Common.CallActionAndClean(ref failedToLoadCallback);
-            OnFailedToLoadAdEvent?.Invoke(ironSourceError.ToString());
+            OnFailedToLoadAdEvent?.Invoke(ironSourceError.getCode().ToString(),ironSourceError.getDescription());
+
         }
 
         void InterstitialOnAdOpenedEvent(IronSourceAdInfo adInfo)

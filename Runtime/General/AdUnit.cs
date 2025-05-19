@@ -6,7 +6,6 @@ namespace VirtueSky.Ads
     [Serializable]
     public abstract class AdUnit
     {
-
         [SerializeField] protected string androidId;
         [SerializeField] protected string iOSId;
 
@@ -20,7 +19,7 @@ namespace VirtueSky.Ads
         [NonSerialized] public Action<double, string, string, string, string> paidedCallback;
 
         public Action OnLoadAdEvent;
-        public Action<string> OnFailedToLoadAdEvent;
+        public Action<string, string> OnFailedToLoadAdEvent;
         public Action OnDisplayedAdEvent;
         public Action<string> OnFailedToDisplayAdEvent;
         public Action OnClosedAdEvent;

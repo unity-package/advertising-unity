@@ -82,7 +82,7 @@ namespace VirtueSky.Ads
         private void RewardedVideoOnAdLoadFailedEvent(IronSourceError ironSourceError)
         {
             Common.CallActionAndClean(ref failedToLoadCallback);
-            OnFailedToLoadAdEvent?.Invoke(ironSourceError.ToString());
+            OnFailedToLoadAdEvent?.Invoke(ironSourceError.getCode().ToString(), ironSourceError.getDescription());
         }
 
         void RewardedVideoOnAdOpenedEvent(IronSourceAdInfo adInfo)
