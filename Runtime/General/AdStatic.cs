@@ -41,9 +41,26 @@ namespace VirtueSky.Ads
 #endif
         }
 
-        public static bool isShowingAd;
+        public static DateTime AdClosingTime { get; internal set; }
+
+        internal static bool isShowingAd;
+
+        public static bool IsShowingAd
+        {
+            get => isShowingAd;
+            internal set
+            {
+                isShowingAd = value;
+                if (!value)
+                {
+                    AdClosingTime = DateTime.Now;
+                }
+            }
+        }
+
         internal static Action waitAppOpenDisplayedAction;
         internal static Action waitAppOpenClosedAction;
+
 
         public static AdUnit OnDisplayed(this AdUnit unit, Action onDisplayed)
         {

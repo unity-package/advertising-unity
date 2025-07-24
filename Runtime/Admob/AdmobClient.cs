@@ -1,4 +1,5 @@
 #if VIRTUESKY_ADS && VIRTUESKY_ADMOB
+using System;
 using GoogleMobileAds.Api;
 #endif
 
@@ -57,8 +58,7 @@ namespace VirtueSky.Ads
 
         void OnAppStateChanged(GoogleMobileAds.Common.AppState state)
         {
-            if (state == GoogleMobileAds.Common.AppState.Foreground && adSettings.AdmobAppOpenAdUnit.autoShow &&
-                !AdStatic.isShowingAd)
+            if (state == GoogleMobileAds.Common.AppState.Foreground && adSettings.AdmobAppOpenAdUnit.autoShow)
             {
                 if (adSettings.CurrentAdNetwork == AdNetwork.Admob) ShowAppOpen();
             }

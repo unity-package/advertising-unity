@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
@@ -42,6 +43,15 @@ namespace VirtueSky.Ads
 #else
             return false;
 #endif
+        }
+
+        public override AdUnit Show()
+        {
+            ResetChainCallback();
+            if (!Application.isMobilePlatform || string.IsNullOrEmpty(Id) || AdStatic.IsRemoveAd || !IsReady())
+                return this;
+            ShowImpl();
+            return this;
         }
 
         protected override void ShowImpl()
