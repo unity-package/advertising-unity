@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
-using VirtueSky.Misc;
+using VirtueSky.Core;
 #if VIRTUESKY_ADS && VIRTUESKY_ADMOB
 using GoogleMobileAds.Api;
 #endif
 using System.Collections;
-using VirtueSky.Core;
+using VirtueSky.Misc;
+#if VIRTUESKY_TRACKING
+using VirtueSky.Tracking;
+#endif
 
 namespace VirtueSky.Ads
 {
@@ -32,7 +35,7 @@ namespace VirtueSky.Ads
             }
 #if VIRTUESKY_TRACKING
             if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
-            paidedCallback += VirtueSky.Tracking.AppTracking.TrackRevenue;
+            paidedCallback += AppTracking.TrackRevenue;
 #endif
         }
 
@@ -204,7 +207,7 @@ namespace VirtueSky.Ads
         private void OnAdFailedToLoad(LoadAdError error)
         {
             Common.CallActionAndClean(ref failedToLoadCallback);
-            OnFailedToLoadAdEvent?.Invoke(error.GetCode().ToString(), error.GetMessage());
+            OnFailedToLoadAdEvent?.Invoke(error.GetMessage());
             if (_reload != null) App.StopCoroutine(_reload);
             _reload = DelayBannerReload();
             App.StartCoroutine(_reload);

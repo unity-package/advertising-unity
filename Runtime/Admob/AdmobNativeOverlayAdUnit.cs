@@ -6,7 +6,10 @@ using GoogleMobileAds.Api;
 using VirtueSky.Core;
 using VirtueSky.Misc;
 using UnityEngine;
+#if VIRTUESKY_TRACKING
 using VirtueSky.Tracking;
+#endif
+using VirtueSky.Inspector;
 
 namespace VirtueSky.Ads
 {
@@ -21,13 +24,13 @@ namespace VirtueSky.Ads
 
         [SerializeField] private bool useTestId;
 #if VIRTUESKY_ADS && VIRTUESKY_ADMOB
-        [Header("Native Options"), SerializeField]
+        [HeaderLine("Native Options"), SerializeField]
         private AdChoicesPlacement adChoicesPlacement;
 
         [SerializeField] private MediaAspectRatio mediaAspectRatio;
         [SerializeField] private VideoOptions videoOptions;
 
-        [Header("NativeAd Style")] public NativeTemplate nativeTemplate;
+        [HeaderLine("NativeAd Style")] public NativeTemplate nativeTemplate;
         public Color mainBackgroundColor = Color.white;
         public AdsSize adsSize = AdsSize.MediumRectangle;
         public AdsPosition adsPosition = AdsPosition.Bottom;
@@ -43,7 +46,7 @@ namespace VirtueSky.Ads
         public override void Init()
         {
             if (useTestId) GetUnitTest();
-#if VIRTUESKY_ADS && VIRTUESKY_ADMOB
+#if VIRTUESKY_TRACKING
             if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
             paidedCallback += AppTracking.TrackRevenue;
 #endif
@@ -339,7 +342,7 @@ namespace VirtueSky.Ads
         private void OnAdFailedToLoad(LoadAdError error)
         {
             Common.CallActionAndClean(ref failedToLoadCallback);
-            OnFailedToLoadAdEvent?.Invoke(error.GetCode().ToString(), error.GetMessage());
+            OnFailedToLoadAdEvent?.Invoke(error.GetMessage());
             if (_reload != null) App.StopCoroutine(_reload);
             _reload = DelayReload();
             App.StartCoroutine(_reload);

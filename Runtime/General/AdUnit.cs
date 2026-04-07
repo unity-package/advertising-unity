@@ -7,6 +7,7 @@ namespace VirtueSky.Ads
     public abstract class AdUnit
     {
         [SerializeField] protected string androidId;
+
         [SerializeField] protected string iOSId;
 
 
@@ -19,7 +20,7 @@ namespace VirtueSky.Ads
         [NonSerialized] public Action<double, string, string, string, string> paidedCallback;
 
         public Action OnLoadAdEvent;
-        public Action<string, string> OnFailedToLoadAdEvent;
+        public Action<string> OnFailedToLoadAdEvent;
         public Action OnDisplayedAdEvent;
         public Action<string> OnFailedToDisplayAdEvent;
         public Action OnClosedAdEvent;
@@ -36,9 +37,9 @@ namespace VirtueSky.Ads
 #if UNITY_ANDROID
                     return androidId;
 #elif UNITY_IOS
-                return iOSId;
+                    return iOSId;
 #else
-                return string.Empty;
+                    return string.Empty;
 #endif
                 }
 
@@ -58,7 +59,7 @@ namespace VirtueSky.Ads
         public virtual AdUnit Show()
         {
             ResetChainCallback();
-            if (!Application.isMobilePlatform || string.IsNullOrEmpty(Id) || AdStatic.IsRemoveAd)
+            if (!Application.isMobilePlatform || string.IsNullOrEmpty(Id) || AdStatic.IsRemoveAd || !IsReady())
                 return this;
             ShowImpl();
             return this;

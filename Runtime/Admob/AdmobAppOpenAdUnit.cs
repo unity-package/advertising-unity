@@ -1,9 +1,12 @@
 using System;
 using UnityEngine;
-using VirtueSky.Misc;
 
 #if VIRTUESKY_ADS && VIRTUESKY_ADMOB
 using GoogleMobileAds.Api;
+#endif
+using VirtueSky.Misc;
+#if VIRTUESKY_TRACKING
+using VirtueSky.Tracking;
 #endif
 
 
@@ -32,7 +35,7 @@ namespace VirtueSky.Ads
             }
 #if VIRTUESKY_TRACKING
             if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
-            paidedCallback += VirtueSky.Tracking.AppTracking.TrackRevenue;
+            paidedCallback += AppTracking.TrackRevenue;
 #endif
         }
 
@@ -54,15 +57,6 @@ namespace VirtueSky.Ads
 #else
             return false;
 #endif
-        }
-
-        public override AdUnit Show()
-        {
-            ResetChainCallback();
-            if (!Application.isMobilePlatform || string.IsNullOrEmpty(Id) || AdStatic.IsRemoveAd ||
-                !IsReady()) return this;
-            ShowImpl();
-            return this;
         }
 
         protected override void ShowImpl()
@@ -114,7 +108,7 @@ namespace VirtueSky.Ads
         private void OnAdOpening()
         {
             AdStatic.waitAppOpenDisplayedAction?.Invoke();
-            AdStatic.isShowingAd = true;
+            AdStatic.IsShowingAd = true;
             Common.CallActionAndClean(ref displayedCallback);
             OnDisplayedAdEvent?.Invoke();
         }
@@ -128,7 +122,7 @@ namespace VirtueSky.Ads
         private void OnAdClosed()
         {
             AdStatic.waitAppOpenClosedAction?.Invoke();
-            AdStatic.isShowingAd = false;
+            AdStatic.IsShowingAd = false;
             Common.CallActionAndClean(ref closedCallback);
             OnClosedAdEvent?.Invoke();
             Destroy();
@@ -151,7 +145,7 @@ namespace VirtueSky.Ads
         private void OnAdFailedToLoad(LoadAdError error)
         {
             Common.CallActionAndClean(ref failedToLoadCallback);
-            OnFailedToLoadAdEvent?.Invoke(error.GetCode().ToString(), error.GetMessage());
+            OnFailedToLoadAdEvent?.Invoke(error.GetMessage());
         }
 #endif
 

@@ -11,7 +11,11 @@ namespace VirtueSky.Ads
         private SerializedProperty _runtimeAutoInitType;
         private SerializedProperty _adCheckingInterval;
         private SerializedProperty _adLoadingInterval;
-        private SerializedProperty _adNetwork;
+
+        private SerializedProperty _useMax;
+        private SerializedProperty _useAdmob;
+        private SerializedProperty _useLevelPlay;
+        private SerializedProperty _enableTrackAdRevenue;
 
         private SerializedProperty _sdkKey;
         private SerializedProperty _maxBannerAdUnit;
@@ -23,8 +27,9 @@ namespace VirtueSky.Ads
         private SerializedProperty _admobInterstitialAdUnit;
         private SerializedProperty _admobRewardAdUnit;
         private SerializedProperty _admobRewardedInterstitialAdUnit;
-        private SerializedProperty _admobAppOpenAdUnit;
         private SerializedProperty _admobNativeOverlayAdUnit;
+        private SerializedProperty _admobAppOpenAdUnit;
+        private SerializedProperty _autoTrackingAdImpressionAdmob;
         private SerializedProperty _admobEnableTestMode;
         private SerializedProperty _enableGDPR;
         private SerializedProperty _enableGDPRTestMode;
@@ -34,9 +39,9 @@ namespace VirtueSky.Ads
         private SerializedProperty _iOSAppKey;
 
         private SerializedProperty _useTestAppKey;
-        // private SerializedProperty _ironSourceBannerAdUnit;
-        // private SerializedProperty _ironSourceInterstitialAdUnit;
-        // private SerializedProperty _ironSourceRewardAdUnit;
+        private SerializedProperty _levelPlayBannerAdUnit;
+        private SerializedProperty _levelPlayInterstitialAdUnit;
+        private SerializedProperty _levelPlayRewardAdUnit;
 
         void Initialize()
         {
@@ -45,7 +50,12 @@ namespace VirtueSky.Ads
             _runtimeAutoInitType = serializedObject.FindProperty("runtimeAutoInitType");
             _adCheckingInterval = serializedObject.FindProperty("adCheckingInterval");
             _adLoadingInterval = serializedObject.FindProperty("adLoadingInterval");
-            _adNetwork = serializedObject.FindProperty("adNetwork");
+
+            _useMax = serializedObject.FindProperty("useMax");
+            _useAdmob = serializedObject.FindProperty("useAdmob");
+            _useLevelPlay = serializedObject.FindProperty("useLevelPlay");
+            _enableTrackAdRevenue = serializedObject.FindProperty("enableTrackAdRevenue");
+
             _sdkKey = serializedObject.FindProperty("sdkKey");
             _maxBannerAdUnit = serializedObject.FindProperty("maxBannerAdUnit");
             _maxInterstitialAdUnit = serializedObject.FindProperty("maxInterstitialAdUnit");
@@ -57,6 +67,7 @@ namespace VirtueSky.Ads
             _admobRewardedInterstitialAdUnit = serializedObject.FindProperty("admobRewardedInterstitialAdUnit");
             _admobAppOpenAdUnit = serializedObject.FindProperty("admobAppOpenAdUnit");
             _admobNativeOverlayAdUnit = serializedObject.FindProperty("admobNativeOverlayAdUnit");
+            _autoTrackingAdImpressionAdmob = serializedObject.FindProperty("autoTrackingAdImpressionAdmob");
             _admobEnableTestMode = serializedObject.FindProperty("admobEnableTestMode");
             _enableGDPR = serializedObject.FindProperty("enableGDPR");
             _enableGDPRTestMode = serializedObject.FindProperty("enableGDPRTestMode");
@@ -64,17 +75,17 @@ namespace VirtueSky.Ads
             _androidAppKey = serializedObject.FindProperty("androidAppKey");
             _iOSAppKey = serializedObject.FindProperty("iOSAppKey");
             _useTestAppKey = serializedObject.FindProperty("useTestAppKey");
-            // _ironSourceBannerAdUnit = serializedObject.FindProperty("ironSourceBannerAdUnit");
-            // _ironSourceInterstitialAdUnit = serializedObject.FindProperty("ironSourceInterstitialAdUnit");
-            // _ironSourceRewardAdUnit = serializedObject.FindProperty("ironSourceRewardAdUnit");
+            _levelPlayBannerAdUnit = serializedObject.FindProperty("levelPlayBannerAdUnit");
+            _levelPlayInterstitialAdUnit = serializedObject.FindProperty("levelPlayInterstitialAdUnit");
+            _levelPlayRewardAdUnit = serializedObject.FindProperty("levelPlayRewardAdUnit");
         }
 
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
             Initialize();
-            EditorGUILayout.LabelField("ADS SETTING", EditorStyles.boldLabel);
-            GuiLine(2);
+            // EditorGUILayout.LabelField("ADS SETTING", EditorStyles.boldLabel);
+            //   GuiLine(2);
             GUILayout.Space(10);
             EditorGUILayout.PropertyField(_runtimeAutoInit);
             if (_runtimeAutoInit.boolValue)
@@ -85,30 +96,34 @@ namespace VirtueSky.Ads
             GUILayout.Space(10);
             EditorGUILayout.PropertyField(_adCheckingInterval);
             EditorGUILayout.PropertyField(_adLoadingInterval);
-            EditorGUILayout.PropertyField(_adNetwork);
-            GUILayout.Space(10);
-            GuiLine(2);
-            switch (_adNetwork.enumValueIndex)
+
+            EditorGUILayout.PropertyField(_useMax);
+            EditorGUILayout.PropertyField(_useAdmob);
+            EditorGUILayout.PropertyField(_useLevelPlay);
+            EditorGUILayout.PropertyField(_enableTrackAdRevenue);
+            EditorGUILayout.PropertyField(_enableGDPR);
+            if (_enableGDPR.boolValue)
             {
-                case (int)AdNetwork.Max:
-                    DrawMax();
-                    break;
-                case (int)AdNetwork.Admob:
-                    DrawAdmob();
-                    break;
-                case (int)AdNetwork.IronSource:
-                    DrawIronSource();
-                    break;
+                EditorGUILayout.PropertyField(_enableGDPRTestMode);
             }
+
+            GUILayout.Space(10);
+
+            if (_useMax.boolValue) DrawMax();
+            if (_useAdmob.boolValue) DrawAdmob();
+            if (_useLevelPlay.boolValue) DrawIronSource();
+
 
             EditorUtility.SetDirty(target);
             serializedObject.ApplyModifiedProperties();
         }
 
+
         void DrawMax()
         {
             GUILayout.Space(10);
-            EditorGUILayout.LabelField("APPLOVIN-MAX", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Applovin - Max", StyleLabel());
+            GuiLine();
             GUILayout.Space(5);
             EditorGUILayout.PropertyField(_sdkKey);
             GUILayout.Space(5);
@@ -116,12 +131,15 @@ namespace VirtueSky.Ads
             EditorGUILayout.PropertyField(_maxInterstitialAdUnit);
             EditorGUILayout.PropertyField(_maxRewardAdUnit);
             EditorGUILayout.PropertyField(_maxAppOpenAdUnit);
+
+            GUILayout.Space(10);
         }
 
         void DrawAdmob()
         {
             GUILayout.Space(10);
-            EditorGUILayout.LabelField("GOOGLE-ADMOB", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Google - Admob", StyleLabel());
+            GuiLine();
             GUILayout.Space(5);
             EditorGUILayout.PropertyField(_admobBannerAdUnit);
             EditorGUILayout.PropertyField(_admobInterstitialAdUnit);
@@ -129,13 +147,8 @@ namespace VirtueSky.Ads
             EditorGUILayout.PropertyField(_admobRewardedInterstitialAdUnit);
             EditorGUILayout.PropertyField(_admobAppOpenAdUnit);
             EditorGUILayout.PropertyField(_admobNativeOverlayAdUnit);
+            EditorGUILayout.PropertyField(_autoTrackingAdImpressionAdmob);
             EditorGUILayout.PropertyField(_admobEnableTestMode);
-            EditorGUILayout.PropertyField(_enableGDPR);
-            if (_enableGDPR.boolValue)
-            {
-                EditorGUILayout.PropertyField(_enableGDPRTestMode);
-            }
-
             EditorGUILayout.PropertyField(_admobDevicesTest);
             GUILayout.Space(10);
             GUI.enabled = false;
@@ -146,19 +159,32 @@ namespace VirtueSky.Ads
             {
                 EditorApplication.ExecuteMenuItem("Assets/Google Mobile Ads/Settings...");
             }
+
+            GUILayout.Space(10);
         }
 
         void DrawIronSource()
         {
             GUILayout.Space(10);
-            EditorGUILayout.LabelField("IRON-SOURCE", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("LevelPlay - IronSource", StyleLabel());
+            GuiLine();
             GUILayout.Space(5);
             EditorGUILayout.PropertyField(_androidAppKey);
             EditorGUILayout.PropertyField(_iOSAppKey);
             EditorGUILayout.PropertyField(_useTestAppKey);
-            // EditorGUILayout.PropertyField(_ironSourceBannerAdUnit);
-            // EditorGUILayout.PropertyField(_ironSourceInterstitialAdUnit);
-            // EditorGUILayout.PropertyField(_ironSourceRewardAdUnit);
+            EditorGUILayout.PropertyField(_levelPlayBannerAdUnit);
+            EditorGUILayout.PropertyField(_levelPlayInterstitialAdUnit);
+            EditorGUILayout.PropertyField(_levelPlayRewardAdUnit);
+
+            GUILayout.Space(10);
+        }
+
+        GUIStyle StyleLabel()
+        {
+            var style = new GUIStyle();
+            style.fontSize = 14;
+            style.normal.textColor = Color.white;
+            return style;
         }
 
         void GuiLine(int i_height = 1)

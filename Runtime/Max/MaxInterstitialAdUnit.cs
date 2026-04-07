@@ -1,6 +1,8 @@
 using System;
-using UnityEngine;
 using VirtueSky.Misc;
+#if VIRTUESKY_TRACKING
+using VirtueSky.Tracking;
+#endif
 
 namespace VirtueSky.Ads
 {
@@ -15,7 +17,7 @@ namespace VirtueSky.Ads
 #if VIRTUESKY_ADS && VIRTUESKY_APPLOVIN
             if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
 #if VIRTUESKY_TRACKING
-            paidedCallback += VirtueSky.Tracking.AppTracking.TrackRevenue;
+            paidedCallback += AppTracking.TrackRevenue;
 #endif
             MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += OnAdLoaded;
             MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += OnAdLoadFailed;
@@ -43,15 +45,6 @@ namespace VirtueSky.Ads
 #else
             return false;
 #endif
-        }
-
-        public override AdUnit Show()
-        {
-            ResetChainCallback();
-            if (!Application.isMobilePlatform || string.IsNullOrEmpty(Id) || AdStatic.IsRemoveAd || !IsReady())
-                return this;
-            ShowImpl();
-            return this;
         }
 
         protected override void ShowImpl()
@@ -83,14 +76,14 @@ namespace VirtueSky.Ads
 
         private void OnAdHidden(string unit, MaxSdkBase.AdInfo info)
         {
-            AdStatic.isShowingAd = false;
+            AdStatic.IsShowingAd = false;
             Common.CallActionAndClean(ref completedCallback);
             if (!string.IsNullOrEmpty(Id)) MaxSdk.LoadInterstitial(Id);
         }
 
         private void OnAdDisplayed(string unit, MaxSdkBase.AdInfo info)
         {
-            AdStatic.isShowingAd = true;
+            AdStatic.IsShowingAd = true;
             Common.CallActionAndClean(ref displayedCallback);
             OnDisplayedAdEvent?.Invoke();
         }
@@ -112,7 +105,7 @@ namespace VirtueSky.Ads
         private void OnAdLoadFailed(string unit, MaxSdkBase.ErrorInfo info)
         {
             Common.CallActionAndClean(ref failedToLoadCallback);
-            OnFailedToLoadAdEvent?.Invoke(info.Code.ToString(), info.Message);
+            OnFailedToLoadAdEvent?.Invoke(info.Message);
         }
 
         private void OnAdLoaded(string unit, MaxSdkBase.AdInfo info)

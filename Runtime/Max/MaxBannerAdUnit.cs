@@ -1,5 +1,8 @@
 using System;
 using VirtueSky.Misc;
+#if VIRTUESKY_TRACKING
+using VirtueSky.Tracking;
+#endif
 
 namespace VirtueSky.Ads
 {
@@ -18,7 +21,7 @@ namespace VirtueSky.Ads
 #if VIRTUESKY_ADS && VIRTUESKY_APPLOVIN
             if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
 #if VIRTUESKY_TRACKING
-            paidedCallback += VirtueSky.Tracking.AppTracking.TrackRevenue;
+            paidedCallback += AppTracking.TrackRevenue;
 #endif
             MaxSdkCallbacks.Banner.OnAdLoadedEvent += OnAdLoaded;
             MaxSdkCallbacks.Banner.OnAdExpandedEvent += OnAdExpanded;
@@ -145,7 +148,7 @@ namespace VirtueSky.Ads
         private void OnAdLoadFailed(string unit, MaxSdkBase.ErrorInfo info)
         {
             Common.CallActionAndClean(ref failedToLoadCallback);
-            OnFailedToLoadAdEvent?.Invoke(info.Code.ToString(), info.Message);
+            OnFailedToLoadAdEvent?.Invoke(info.Message);
             Destroy();
         }
 

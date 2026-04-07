@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 using VirtueSky.Core;
+#if VIRTUESKY_DATA
+using VirtueSky.DataStorage;
+#endif
 
 namespace VirtueSky.Ads
 {
@@ -22,14 +25,18 @@ namespace VirtueSky.Ads
         private static void AutoInitialize(CoreEnum.RuntimeAutoInitType adsRuntimeAutoInitType)
         {
             if (AdSettings.Instance == null) return;
-            if (!AdSettings.Instance.RuntimeAutoInit) return;
-            if (AdSettings.Instance.RuntimeAutoInitType != adsRuntimeAutoInitType) return;
+            if (!AdSettings.RuntimeAutoInit) return;
+            if (AdSettings.RuntimeAutoInitType != adsRuntimeAutoInitType) return;
             var ads = new GameObject("Advertising");
             ads.AddComponent<Advertising>();
             UnityEngine.Object.DontDestroyOnLoad(ads);
         }
 
 #endif
+
+
+        public static Action<bool> OnChangePreventDisplayAppOpenEvent;
+
         public static bool IsRemoveAd
         {
 #if VIRTUESKY_DATA
@@ -57,10 +64,8 @@ namespace VirtueSky.Ads
                 }
             }
         }
-
         internal static Action waitAppOpenDisplayedAction;
         internal static Action waitAppOpenClosedAction;
-
 
         public static AdUnit OnDisplayed(this AdUnit unit, Action onDisplayed)
         {
@@ -122,10 +127,10 @@ namespace VirtueSky.Ads
                 case MaxRewardAdUnit maxReward:
                     maxReward.completedCallback = onCompleted;
                     return unit;
-                case IronSourceInterstitialAdUnit ironSourceInterstitialAdUnit:
+                case LevelPlayInterstitialAdUnit ironSourceInterstitialAdUnit:
                     ironSourceInterstitialAdUnit.completedCallback = onCompleted;
                     return unit;
-                case IronSourceRewardAdUnit ironSourceRewardAdUnit:
+                case LevelPlayRewardAdUnit ironSourceRewardAdUnit:
                     ironSourceRewardAdUnit.completedCallback = onCompleted;
                     return unit;
             }
@@ -146,7 +151,7 @@ namespace VirtueSky.Ads
                 case MaxRewardAdUnit maxReward:
                     maxReward.skippedCallback = onSkipped;
                     return unit;
-                case IronSourceRewardAdUnit ironSourceRewardAdUnit:
+                case LevelPlayRewardAdUnit ironSourceRewardAdUnit:
                     ironSourceRewardAdUnit.skippedCallback = onSkipped;
                     return unit;
             }
