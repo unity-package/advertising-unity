@@ -34,7 +34,7 @@ dependency `extensions-unity-1.0.6`
 
 Install `app-tracking-unity` and add define symbol `VIRTUESKY_TRACKING` if you need ad revenue tracking
 ```json
-"com.wolf-org.tracking":"https://github.com/unity-package/app-tracking-unity.git#1.0.5",
+"com.wolf-org.tracking":"https://github.com/unity-package/app-tracking-unity.git#1.0.6",
 ```
 
 ## Use
