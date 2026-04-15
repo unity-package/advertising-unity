@@ -51,7 +51,7 @@ Install `app-tracking-unity` and add define symbol `VIRTUESKY_TRACKING` if you n
 - Add `Scripting Define Symbols` in `Project Settings` > `Player` > `Other Settings`
     - Applovin: `VIRTUESKY_ADS` and `VIRTUESKY_APPLOVIN`
     - Admob: `VIRTUESKY_ADS` and `VIRTUESKY_ADMOB`
-    - IronSource: `VIRTUESKY_ADS` and `VIRTUESKY_IRONSOURCE`
+    - IronSource: `VIRTUESKY_ADS` and `VIRTUESKY_LEVELPLAY`
   
 - If you use `Runtime auto init`, `Advertising` will be created automatically when you load the scene. Conversely, you would attach `Advertising` to the GameObject in the scene so that the ads can be loaded
 
